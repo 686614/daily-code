@@ -5,7 +5,7 @@ int main() {
 	int big = 0;
 	int input;
 	for (int i = 0; i < 3; i++) {
-		cout << "enter a your number" << endl;
+		cout << "enter your number" << endl;
 		cin >> input;
 		if (input > big)
 			big = input;

@@ -425,6 +425,7 @@ bool Collision(int b1x, int b1y, int b2x, int b2y) {
 	   void brick::killBrick() {
 		   dead = true;
 	   }
+
 	   void brick::Collision(int b1x, int b1y) {
 
 		   if ((b1x + 180 < Xpos) ||
@@ -440,3 +441,4 @@ bool Collision(int b1x, int b1y, int b2x, int b2y) {
 			   return 1;
 		   }
 	   }
+
