@@ -38,6 +38,7 @@ int main()
 	ALLEGRO_BITMAP *padle = NULL;
 	ALLEGRO_BITMAP *padle2 = NULL;
 	ALLEGRO_BITMAP *ball = NULL;
+	ALLEGRO_BITMAP *ball2 = NULL;
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_BITMAP *image = NULL;
 
@@ -45,10 +46,13 @@ int main()
 	float padle_x = 30;
 	float padle_y = 30;
 
-
+	
 	float ball_x = 90;
 	float ball_y = 90;
 	float ball_dx = -4.0, ball_dy = 4.0;
+	float ball2_x = 90;
+	float ball2_y = 90;
+	float ball2_dx = -4.0, ball2_dy = 4.0;
 
 	al_init();
 
@@ -82,13 +86,20 @@ int main()
 
 	/////
 	display = al_create_display(640, 480);
+
 	////////ball
 	ball = al_load_bitmap("IronShell.jpg");
+	//al_convert_mask_to_alpha(ball, al_map_rgb(0, 0, 0));
+	ball2 = al_load_bitmap("WomboCombo.jpg");
+	//al_convert_mask_to_alpha(ball2, al_map_rgb(0, 0, 0));
 	cout << "flag2" << endl;
-	al_convert_mask_to_alpha(ball, al_map_rgb(0, 0, 0));
+	//
+	//
 	if (ball == NULL)
 		cout << "WTF" << endl;
-
+		if (ball2 == NULL)
+		cout << "WTF" << endl;
+		cout << "flag 6" << endl;
 	image = al_load_bitmap("potatoes.jpg");
 
 	al_clear_to_color(al_map_rgb(255, 255, 255));
@@ -96,7 +107,7 @@ int main()
 	padle = al_create_bitmap(180, 32);
 
 	al_set_target_bitmap(padle);
-
+	cout << "flag 5" << endl;
 	al_clear_to_color(al_map_rgb(255, 255, 255));
 	////padle 2
 	padle2 = al_create_bitmap(180, 32);
@@ -121,7 +132,7 @@ int main()
 	al_flip_display();
 
 	al_start_timer(timer);
-
+	cout << "flag 4" << endl;
 	brick joe;
 	joe.initBrick(20, 365, 50, 30);
 
@@ -212,7 +223,7 @@ int main()
 	//OR the mouse closing the display
 	while (!doexit)
 	{
-		cout << "flag1" << endl;
+		cout << "flag3" << endl;
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
 
@@ -235,22 +246,26 @@ int main()
 			}
 
 			if (ball_x < 0 || ball_x > 640 - 32) {
-				//flip the x direction
 				ball_dx = -ball_dx;
 			}
+			if (ball2_x < 0 || ball2_x > 640 - 32) {
+				ball2_dx = -ball2_dx;
+			}
 
-
-			//if the box hits the top wall OR the bottom wall
+			
 			if (ball_y < 0 || ball_y > 480 - 32) {
-				//flip the y direction
 				ball_dy = -ball_dy;
+			}
+			if (ball2_y < 0 || ball2_y > 480 - 32) {
+				ball2_dy = -ball2_dy;
 			}
 
 			//really important code!
 			//move the box in a diagonal
 			ball_x += ball_dx;
 			ball_y += ball_dy;
-
+			ball2_x += ball2_dx;
+			ball2_y += ball2_dy;
 			if (Collision(padle_x, padle_y, ball_x, ball_y) == 1)
 				ball_dy = -ball_dy;
 
@@ -507,8 +522,8 @@ int main()
 			//here's where the bitmap is actually drawn somewhere else
 			al_draw_bitmap(image, 0, 0, 0);
 			al_draw_bitmap(padle, padle_x, padle_y, 0);
-
 			al_draw_bitmap(ball, ball_x, ball_y, 0);
+			al_draw_bitmap(ball2, ball2_x, ball2_y, 0);
 
 			if (joe.IsDead() == false)
 				joe.draw();
@@ -578,8 +593,8 @@ int main()
 	}//end game loop
 
 	al_destroy_bitmap(padle);
-
 	al_destroy_bitmap(ball);
+	al_destroy_bitmap(ball2);
 	al_destroy_timer(timer);
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
