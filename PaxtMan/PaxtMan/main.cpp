@@ -166,12 +166,12 @@ int main()
 	//set up the two squares
 	pacman = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
 	al_set_target_bitmap(pacman);
-	al_clear_to_color(al_map_rgb(255, 0, 255));
+	al_clear_to_color(al_map_rgb(255, 255, 0));
 
 	///wall///////////
 	platform = al_create_bitmap(WALLSIZE, WALLSIZE);
 	al_set_target_bitmap(platform);
-	al_clear_to_color(al_map_rgb(0, 100, 255));
+	al_clear_to_color(al_map_rgb(127, 0, 255));
 	//////dots/////
 	dot = al_create_bitmap(DOT, DOT);
 	al_set_target_bitmap(dot);
@@ -224,7 +224,7 @@ int main()
 		al_play_sample(sample1, 0, 0.0, 0.0, ALLEGRO_PLAYMODE_ONCE, NULL);
 		if (ghost1.isDead() && ghost2.isDead() && ghost3.isDead() && ghost4.isDead()) {
 			al_rest(1);
-			al_clear_to_color(al_map_rgb(0, 200, 255));
+			al_clear_to_color(al_map_rgb(255, 0, 255));
 			al_flip_display();
 			doexit = true;
 
@@ -1088,6 +1088,7 @@ void ghost::chase3(int x, int y, int level[20][20]) {
 	if (!wallCollide(xPos, yPos, RIGHT, level)) {
 		dir = RIGHT;
 		//  cout << "dir is right" << endl;
+
 		return;
 	}
 
